@@ -1,0 +1,45 @@
+<mat-toolbar>
+    <mat-icon>account_circle</mat-icon>
+    Contatos
+</mat-toolbar>
+<mat-tab-group>
+    <mat-tab label="Todos">
+
+    </mat-tab>
+
+    <mat-tab label="Novo">
+        <mat-card class="half-width">
+            <mat-card-title> Novo Contato</mat-card-title>
+            <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+                <mat-form-field class="full-width">
+                    <mat-label>Nome:</mat-label>
+                    <input matInput placeholder="Digite seu nome" formControlName="nome" />
+                </mat-form-field>
+
+                <div *ngIf="formulario.controls['nome'].errors">
+                    <div *ngIf="formulario.controls['nome'].errors['required']">
+                        O campo nome é obrigatório!
+                    </div>
+                </div>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Email:</mat-label>
+                    <input matInput placeholder="Digite seu email" formControlName="email" />
+                </mat-form-field>
+                <div *ngIf="formulario.controls['email'].errors">
+                    <div *ngIf="formulario.controls['email'].errors['email']">
+                        O email está inválido!
+                    </div>
+                    <div *ngIf="formulario.controls['email'].errors['required']">
+                        O campo Email é obrigatório!
+                    </div>
+                </div>
+
+                <button mat-button color="primary" [disabled]="!formulario.valid">
+                    Adicionar
+                </button>
+            </form>
+        </mat-card>
+
+    </mat-tab>
+</mat-tab-group>
