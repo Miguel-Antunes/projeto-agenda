@@ -12,6 +12,7 @@ export class ContatoComponent implements OnInit {
 
   formulario: FormGroup;
   contatos: Contato[] = [];
+  colunas = ['id', 'nome', 'email', 'favorito'];
 
   constructor(
     private contatoService: ContatoService,
@@ -20,6 +21,7 @@ export class ContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.configurarFormulario();
+    this.listarContatos();
   }
 
   configurarFormulario(): void {
@@ -30,6 +32,12 @@ export class ContatoComponent implements OnInit {
       }
     )
   }
+  listarContatos(): void {
+    this.contatoService.listarTodos().subscribe((response) => {
+      this.contatos = response;
+    })
+  }
+
   onSubmit(): void {
 
     const contato: Contato = new Contato(this.formulario.get('nome').value, this.formulario.get('email').value)

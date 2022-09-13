@@ -19,5 +19,8 @@ export class ContatoService {
     return this.Http.post<Contato>(this.apiUrl, contato)
 
   }
+  listarTodos(): Observable<Contato[]> {
+    return this.Http.get<any>(this.apiUrl);
+  }
 
 }
