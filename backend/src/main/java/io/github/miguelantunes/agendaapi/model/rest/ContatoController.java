@@ -50,9 +50,11 @@ public class ContatoController {
 	}
 	@PatchMapping("{id}/favorito")
 	@ResponseStatus(HttpStatus.OK)
-	public void favoritarContato(@PathVariable Integer id, @RequestBody Boolean favorito){
+	public void favoritarContato(@PathVariable Integer id){
 		 repository.findById(id).map(contato ->{
-			contato.setFavorito(favorito);
+			 
+			boolean favorito = contato.getFavorito() == Boolean.TRUE;
+			contato.setFavorito(!favorito);
 			repository.save(contato);
 			return Void.TYPE;
 		}).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));

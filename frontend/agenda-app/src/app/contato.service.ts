@@ -10,17 +10,20 @@ import { Contato } from './contato/Contato';
 export class ContatoService {
 
   constructor(
-    private Http: HttpClient
+    private http: HttpClient
   ) { }
 
   apiUrl: string = environment.apiUrl + '/api/contatos'
 
   novoContato(contato: Contato): Observable<Contato> {
-    return this.Http.post<Contato>(this.apiUrl, contato)
+    return this.http.post<Contato>(this.apiUrl, contato)
 
   }
   listarTodos(): Observable<Contato[]> {
-    return this.Http.get<any>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl);
   }
 
+  favoritarContato(contato: Contato): Observable<any> {
+    return this.http.patch(this.apiUrl + '/' + contato.id + '/favorito', null)
+  }
 }
