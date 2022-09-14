@@ -1,3 +1,4 @@
+import { IfStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContatoService } from '../contato.service';
@@ -12,7 +13,7 @@ export class ContatoComponent implements OnInit {
 
   formulario: FormGroup;
   contatos: Contato[] = [];
-  colunas = ['id', 'nome', 'email', 'favorito'];
+  colunas = ['foto', 'id', 'nome', 'email', 'favorito'];
 
   constructor(
     private contatoService: ContatoService,
@@ -43,6 +44,17 @@ export class ContatoComponent implements OnInit {
     })
 
 
+  }
+  uploadFoto(event, contato) {
+    const files = event.target.files;
+    if (files) {
+      const foto = files[0];
+      const formData = new FormData();
+      formData.append('foto', foto);
+      this.contatoService.uploadFoto(contato, formData).subscribe((response) => {
+        this.listarContatos();
+      })
+    }
   }
 
   onSubmit(): void {
