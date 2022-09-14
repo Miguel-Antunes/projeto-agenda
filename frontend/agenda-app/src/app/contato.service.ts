@@ -27,6 +27,6 @@ export class ContatoService {
     return this.http.patch(this.apiUrl + '/' + contato.id + '/favorito', null)
   }
   uploadFoto(contato: Contato, formData: FormData): Observable<any> {
-    return this.http.put(this.apiUrl + '/' + contato.id + '/foto', formData)
+    return this.http.put(this.apiUrl + '/' + contato.id + '/foto', formData, { responseType: 'blob' })
   }
 }
